@@ -1,0 +1,41 @@
+erDiagram
+    utilisateurs ||--|| comptes : "possède"
+    comptes ||--o{ transactions : "source"
+    comptes ||--o{ transactions : "destination"
+    categories ||--o{ transactions : "catégorise"
+
+    utilisateurs {
+        int id_utilisateur PK
+        varchar nom
+        varchar prenom
+        varchar email
+        varchar mot_de_passe
+        enum role
+        datetime date_creation
+        datetime derniere_connexion
+    }
+
+    comptes {
+        int id_compte PK
+        int id_utilisateur FK
+        decimal solde
+        datetime date_creation
+    }
+
+    categories {
+        int id_categorie PK
+        varchar nom
+        varchar description
+    }
+
+    transactions {
+        int id_transaction PK
+        varchar reference
+        varchar description
+        decimal montant
+        datetime date_transaction
+        enum type_transaction
+        int id_compte FK
+        int id_compte_destination FK
+        int id_categorie FK
+    }
